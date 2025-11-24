@@ -1,6 +1,9 @@
-import { MapPin, Phone, Mail, Clock, MessageCircle } from 'lucide-react';
+import { useState } from 'react';
+import { MapPin, Phone, Mail, Clock, MessageCircle, PhoneCall } from 'lucide-react';
+import QuickContactModal from './QuickContactModal';
 
 export default function Contact() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const contactMethods = [
     {
       icon: Phone,
@@ -35,9 +38,16 @@ export default function Contact() {
           <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">
             Entre em Contato Conosco
           </h2>
-          <p className="text-xl text-slate-600 max-w-2xl mx-auto">
+          <p className="text-xl text-slate-600 max-w-2xl mx-auto mb-6">
             Nossa equipe está pronta para ajudar você a encontrar o imóvel dos seus sonhos
           </p>
+          <button
+            onClick={() => setIsModalOpen(true)}
+            className="inline-flex items-center gap-2 bg-gradient-to-r from-emerald-500 to-cyan-500 text-white px-8 py-4 rounded-full text-lg font-semibold hover:shadow-xl hover:shadow-emerald-500/50 transition-all duration-300 hover:scale-105"
+          >
+            <PhoneCall className="w-5 h-5" />
+            Solicitar Contato
+          </button>
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
@@ -128,6 +138,11 @@ export default function Contact() {
           ))}
         </div>
       </div>
+
+      <QuickContactModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
     </section>
   );
 }
